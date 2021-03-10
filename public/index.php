@@ -24,11 +24,13 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 
 
+$app->get('/', '\App\Controller\FirstController:homepage');
+$app->get('/hello', '\App\Controller\SecondController:hello');
 
-$app->get('/', function(Request $request, Response $response){
+/*$app->get('/', function(Request $request, Response $response){
     $response->getBody()->write('hello, world !');
     return $response;
-});
+});*/
 
 $app->get('/hello/bilal', function(Request $request, Response $response){
     $response->getBody()->write('hello bilal');
