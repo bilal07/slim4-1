@@ -26,6 +26,8 @@ $app = AppFactory::create();
 
 $app->get('/', '\App\Controller\FirstController:homepage');
 $app->get('/hello', '\App\Controller\SecondController:hello');
+$app->get('/default', '\App\Controller\SearchController:default');
+$app->get('/search', '\App\Controller\SearchController:search');
 
 /*$app->get('/', function(Request $request, Response $response){
     $response->getBody()->write('hello, world !');
