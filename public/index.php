@@ -28,13 +28,15 @@ $app->get('/', '\App\Controller\FirstController:homepage');
 $app->get('/hello', '\App\Controller\SecondController:hello');
 $app->get('/default', '\App\Controller\SearchController:default');
 $app->get('/search', '\App\Controller\SearchController:search');
+$app->any('/form', '\App\Controller\SearchController:form');
+$app->get('/api', '\App\Controller\ApiController:search');
 
 /*$app->get('/', function(Request $request, Response $response){
     $response->getBody()->write('hello, world !');
     return $response;
 });*/
 
-$app->get('/hello/bilal', function(Request $request, Response $response){
+/*$app->get('/hello/bilal', function(Request $request, Response $response){
     $response->getBody()->write('hello bilal');
     return $response;
 });
@@ -44,5 +46,5 @@ $app->get('/hello/{name}', function(Request $request, Response $response, array 
     $html = $this->get('templating')->render('hello.html', ['name' => ucfirst($args['name'])]);
     $response->getBody()->write($html);
     return $response;
-});
+});*/
 $app->run();

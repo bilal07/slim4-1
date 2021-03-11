@@ -17,13 +17,26 @@ class SearchController extends Controller
     public function search(Request $request, Response $response)
     {
         $albums = json_decode(file_get_contents(__DIR__ . '/../../data/albums.json'),true);
-        $query = $request->getQueryParams('q');
+        $query = $request->getQueryParam('q');
         if($query) {
             $albums = array_values(array_filter($albums, function($album) use ($query){
-                return strpos($album['title'], $query) !== false || strpos($album['artist'], $query) !== false;
+                return strpos($album['title'], $query, 0) !== false || strpos($album['artist'], $query, 0) !== false;
             }));
         }
         return $this->render($response, 'search.html',['albums' => $albums,
+                                                       'query' => $query]);
+    }
+
+    public function form(Request $request, Response $response)
+    {
+        $albums = json_decode(file_get_contents(__DIR__ . '/../../data/albums.json'),true);
+        $query = $request->getParam('q');
+        if($query) {
+            $albums = array_values(array_filter($albums, function($album) use ($query){
+                return strpos($album['title'], $query, 0) !== false || strpos($album['artist'], $query, 0) !== false;
+            }));
+        }
+        return $this->render($response, 'form.html',['albums' => $albums,
                                                        'query' => $query]);
     }
 }
