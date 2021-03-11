@@ -47,3 +47,26 @@ form input {
     padding: 12px;
     text-align: center;
 }
+
+
+.bikes {
+    display: grid;
+    grid-gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.bikes > div {
+    border: #999 1px solid;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+}
+
+.bikes > div span {
+    font-size: 400%;
+}
+
+.bike-icon {
+    font-size: 1000%;
+    margin: 0;
+}

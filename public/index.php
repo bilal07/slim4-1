@@ -30,6 +30,18 @@ $app->get('/default', '\App\Controller\SearchController:default');
 $app->get('/search', '\App\Controller\SearchController:search');
 $app->any('/form', '\App\Controller\SearchController:form');
 $app->get('/api', '\App\Controller\ApiController:search');
+$app->get('/defshop', '\App\Controller\ShopController:defShop');
+$app->get('/details/{id:[0-9]+}', '\App\Controller\ShopController:details');
+
+
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+
+$errorMiddleware->setErrorHandler(
+    Slim\Exception\HttpNotFoundException::class,
+    function(Request $request) use ($container){
+        $controller = new App\Controller\ExceptionController($container);
+        return $controller->notFound($request);
+    });
 
 /*$app->get('/', function(Request $request, Response $response){
     $response->getBody()->write('hello, world !');
