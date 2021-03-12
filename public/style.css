@@ -36,6 +36,12 @@ form input {
     padding: 15px;
 }
 
+form label {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 6px;
+}
+
 .albums {
     display: grid;
     grid-gap: 12px;

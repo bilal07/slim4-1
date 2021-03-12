@@ -19,10 +19,15 @@ $container->set('templating',function(){
     ]);
 });
 
+$container->set('session', function(){
+    return new \SlimSession\Helper();
+});
+
 AppFactory::setContainer($container);
 
 $app = AppFactory::create();
 
+$app->add(new \Slim\Middleware\Session);
 
 $app->get('/', '\App\Controller\FirstController:homepage');
 $app->get('/hello', '\App\Controller\SecondController:hello');
@@ -32,7 +37,10 @@ $app->any('/form', '\App\Controller\SearchController:form');
 $app->get('/api', '\App\Controller\ApiController:search');
 $app->get('/defshop', '\App\Controller\ShopController:defShop');
 $app->get('/details/{id:[0-9]+}', '\App\Controller\ShopController:details');
-
+$app->any('/login', '\App\Controller\AuthController:login');
+$app->get('/secure', '\App\Controller\SecureController:default')->add(new \App\Middleware\Authenticate($app->getContainer()->get('session')));
+$app->get('/secure/status', '\App\Controller\SecureController:status')->add(new \App\Middleware\Authenticate($app->getContainer()->get('session')));
+$app->get('/logout', '\App\Controller\AuthController:logout');
 
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
